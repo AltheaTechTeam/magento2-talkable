@@ -1,0 +1,22 @@
+<?php /* @var \AltheaTech\Talkable\Helper\Config $configHelper */ ?>
+<?php $configHelper = $this->helper('AltheaTech\Talkable\Helper\Config'); ?>
+<?php /* @var \AltheaTech\Talkable\Helper\Data $helper */ ?>
+<?php $helper = $this->helper('AltheaTech\Talkable\Helper\Data'); ?>
+<?php /* @var \Magento\Framework\Json\Helper\Data $jsonHelper */ ?>
+<?php $jsonHelper = $this->helper('Magento\Framework\Json\Helper\Data'); ?>
+<?php if (!$configHelper->getSiteId()): ?>
+    <!-- Talkable Site ID is blank, check your Talkable extension settings -->
+    <script type="text/javascript" src="//d2jjzw81hqbuqv.cloudfront.net/integration/talkable-3.0.min.js"></script>
+<?php else: ?>
+    <script type="text/javascript">
+        //<![CDATA[
+        var _talkableq = _talkableq || [];
+        _talkableq.push(["init", {
+            site_id: "<?php echo $configHelper->getSiteId(); ?>"
+        }]);
+
+        _talkableq.push(["authenticate_customer", <?php echo $jsonHelper->jsonEncode($helper->getCustomerData()) ?>]);
+        //]]>
+    </script>
+    <script type="text/javascript" src="//d2jjzw81hqbuqv.cloudfront.net/integration/clients/<?php echo $configHelper->getSiteId(); ?>.min.js"></script>
+<?php endif; ?>

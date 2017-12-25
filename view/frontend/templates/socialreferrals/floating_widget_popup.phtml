@@ -1,0 +1,9 @@
+<?php /* @var \AltheaTech\Talkable\Helper\Config $configHelper */ ?>
+<?php $configHelper = $this->helper('AltheaTech\Talkable\Helper\Config'); ?>
+<?php if ($configHelper->getSiteId() && $configHelper->isFloatingWidgetPopupEnabled()): ?>
+    <script type="text/javascript">
+        //<![CDATA[
+        _talkableq.push(["register_affiliate", {}]);
+        //]]>
+    </script>
+<?php endif; ?>
