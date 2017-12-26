@@ -1,0 +1,14 @@
+<?php /* @var \AltheaTech\Talkable\Helper\Config $configHelper */ ?>
+<?php $configHelper = $this->helper('AltheaTech\Talkable\Helper\Config'); ?>
+<?php /* @var \AltheaTech\Talkable\Helper\Data $helper */ ?>
+<?php $helper = $this->helper('AltheaTech\Talkable\Helper\Data'); ?>
+<?php /* @var \Magento\Framework\Json\Helper\Data $jsonHelper */ ?>
+<?php $jsonHelper = $this->helper('Magento\Framework\Json\Helper\Data'); ?>
+<?php if ($configHelper->getSiteId() && $configHelper->isPostPurchaseEnabled()): ?>
+    <script type="text/javascript">
+        //<![CDATA[
+		<?php $eventData = $helper->getPurchaseData($this->getCheckoutOrder()); ?>
+        _talkableq.push(["register_purchase", <?php echo $jsonHelper->jsonEncode($eventData); ?>]);
+        //]]>
+    </script>
+<?php endif; ?>
